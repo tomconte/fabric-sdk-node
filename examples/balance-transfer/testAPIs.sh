@@ -20,18 +20,6 @@ ORG1_TOKEN=$(echo $ORG1_TOKEN | jq ".token" | sed "s/\"//g")
 echo
 echo "ORG1 token is $ORG1_TOKEN"
 echo
-echo "POST request Enroll on Org2 ..."
-echo
-ORG2_TOKEN=$(curl -s -X POST \
-  http://localhost:4000/users \
-  -H "cache-control: no-cache" \
-  -H "content-type: application/x-www-form-urlencoded" \
-  -d 'username=Barry&orgName=org2')
-echo $ORG2_TOKEN
-ORG2_TOKEN=$(echo $ORG2_TOKEN | jq ".token" | sed "s/\"//g")
-echo
-echo "ORG2 token is $ORG2_TOKEN"
-echo
 echo
 echo "POST request Create channel  ..."
 echo
@@ -57,21 +45,7 @@ curl -s -X POST \
   -H "content-type: application/json" \
   -H "x-access-token: $ORG1_TOKEN" \
   -d '{
-	"peers": ["tcoiflv43-peer0:7051","tcoiflv43-peer1:7051"]
-}'
-echo
-echo
-
-echo "POST request Join channel on Org2"
-echo
-curl -s -X POST \
-  http://localhost:4000/channels/mychannel/peers \
-  -H "authorization: Bearer $ORG2_TOKEN" \
-  -H "cache-control: no-cache" \
-  -H "content-type: application/json" \
-  -H "x-access-token: $ORG2_TOKEN" \
-  -d '{
-	"peers": ["localhost:8051","localhost:8056"]
+	"peers": ["tcojuowhj-peer0:7051","tcojuowhj-peer1:7051"]
 }'
 echo
 echo
@@ -85,25 +59,7 @@ curl -s -X POST \
   -H "content-type: application/json" \
   -H "x-access-token: $ORG1_TOKEN" \
   -d '{
-	"peers": ["tcoiflv43-peer0:7051","tcoiflv43-peer1:7051"],
-	"chaincodeName":"mycc",
-	"chaincodePath":"github.com/example_cc",
-	"chaincodeVersion":"v0"
-}'
-echo
-echo
-
-
-echo "POST Install chaincode on Org2"
-echo
-curl -s -X POST \
-  http://localhost:4000/chaincodes \
-  -H "authorization: Bearer $ORG2_TOKEN" \
-  -H "cache-control: no-cache" \
-  -H "content-type: application/json" \
-  -H "x-access-token: $ORG2_TOKEN" \
-  -d '{
-	"peers": ["localhost:8051","localhost:8056"],
+	"peers": ["tcojuowhj-peer0:7051","tcojuowhj-peer1:7051"],
 	"chaincodeName":"mycc",
 	"chaincodePath":"github.com/example_cc",
 	"chaincodeVersion":"v0"
@@ -120,7 +76,7 @@ curl -s -X POST \
   -H "content-type: application/json" \
   -H "x-access-token: $ORG1_TOKEN" \
   -d '{
-	"peers": ["tcoiflv43-peer0:7051"],
+	"peers": ["tcojuowhj-peer0:7051"],
 	"chaincodeName":"mycc",
 	"chaincodePath":"github.com/example_cc",
 	"chaincodeVersion":"v0",
@@ -139,25 +95,7 @@ TRX_ID=$(curl -s -X POST \
   -H "content-type: application/json" \
   -H "x-access-token: $ORG1_TOKEN" \
   -d '{
-	"peers": ["tcoiflv43-peer0:7051", "tcoiflv43-peer1:7051"],
-	"chaincodeVersion":"v0",
-	"functionName":"invoke",
-	"args":["move","a","b","10"]
-}')
-echo "Transacton ID is $TRX_ID"
-echo
-echo
-
-echo "POST invoke chaincode on peers of Org2"
-echo
-TRX_ID=$(curl -s -X POST \
-  http://localhost:4000/channels/mychannel/chaincodes/mycc \
-  -H "authorization: Bearer $ORG2_TOKEN" \
-  -H "cache-control: no-cache" \
-  -H "content-type: application/json" \
-  -H "x-access-token: $ORG2_TOKEN" \
-  -d '{
-	"peers": ["localhost:8051", "localhost:8056"],
+	"peers": ["tcojuowhj-peer0:7051", "tcojuowhj-peer1:7051"],
 	"chaincodeVersion":"v0",
 	"functionName":"invoke",
 	"args":["move","a","b","10"]
