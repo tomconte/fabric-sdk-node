@@ -57,7 +57,7 @@ curl -s -X POST \
   -H "content-type: application/json" \
   -H "x-access-token: $ORG1_TOKEN" \
   -d '{
-	"peers": ["localhost:7051","localhost:7056"]
+	"peers": ["tcoiflv43-peer0:7051","tcoiflv43-peer1:7051"]
 }'
 echo
 echo
@@ -85,7 +85,7 @@ curl -s -X POST \
   -H "content-type: application/json" \
   -H "x-access-token: $ORG1_TOKEN" \
   -d '{
-	"peers": ["localhost:7051","localhost:7056"],
+	"peers": ["tcoiflv43-peer0:7051","tcoiflv43-peer1:7051"],
 	"chaincodeName":"mycc",
 	"chaincodePath":"github.com/example_cc",
 	"chaincodeVersion":"v0"
@@ -120,7 +120,7 @@ curl -s -X POST \
   -H "content-type: application/json" \
   -H "x-access-token: $ORG1_TOKEN" \
   -d '{
-	"peers": ["localhost:7051"],
+	"peers": ["tcoiflv43-peer0:7051"],
 	"chaincodeName":"mycc",
 	"chaincodePath":"github.com/example_cc",
 	"chaincodeVersion":"v0",
@@ -139,7 +139,7 @@ TRX_ID=$(curl -s -X POST \
   -H "content-type: application/json" \
   -H "x-access-token: $ORG1_TOKEN" \
   -d '{
-	"peers": ["localhost:7051", "localhost:7056"],
+	"peers": ["tcoiflv43-peer0:7051", "tcoiflv43-peer1:7051"],
 	"chaincodeVersion":"v0",
 	"functionName":"invoke",
 	"args":["move","a","b","10"]
