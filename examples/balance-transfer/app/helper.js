@@ -107,12 +107,12 @@ var getTargets = function(peers, org) {
 		for (let key in ORGS[org]) {
 			if (ORGS[org].hasOwnProperty(key)) {
 				//FIXME: Can we think a better solution here ?
-				if (key.indexOf('peer') === 0 && ORGS[org][key]['requests'] === 'grpcs://' +
+				if (key.indexOf('peer') === 0 && ORGS[org][key]['requests'] === 'grpc://' +
 					peers[index]) {
 					let data = fs.readFileSync(path.join(__dirname, ORGS[org][key][
 						'tls_cacerts'
 					]));
-					targets.push(new Peer('grpcs://' + peers[index], {
+					targets.push(new Peer('grpc://' + peers[index], {
 						pem: Buffer.from(data).toString(),
 						'ssl-target-name-override': ORGS[org][key]['server-hostname']
 					}));
@@ -282,7 +282,7 @@ var getArgs = function(chaincodeArgs) {
 var getPeerAddressByName = function(org, peer) {
 	var peerList = [];
 	var address = ORGS[org][peer].requests;
-	return address.split('grpcs://')[1];
+	return address.split('grpc://')[1];
 };
 var getNonce = function() {
 	var length = hfc.getConfigSetting('nonce-size');
