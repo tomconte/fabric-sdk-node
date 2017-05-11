@@ -1,0 +1,26 @@
+{
+	"network-config": {
+		"orderer": {
+			"url": "grpc://{{PREFIX}}-orderer0:7050",
+			"server-hostname": "{{PREFIX}}-orderer0",
+			"tls_cacerts": "../artifacts/tls/orderer/ca-cert.pem"
+		},
+		"org1": {
+			"name": "peerOrg1",
+			"mspid": "Org1MSP",
+			"ca": "http://{{PREFIX}}-ca0:7054",
+			"peer1": {
+				"requests": "grpc://{{PREFIX}}-peer0:7051",
+				"events": "grpc://{{PREFIX}}-peer0:7053",
+				"server-hostname": "{{PREFIX}}-peer0",
+				"tls_cacerts": "../artifacts/tls/peers/peer0/ca-cert.pem"
+			},
+			"peer2": {
+				"requests": "grpc://{{PREFIX}}-peer1:7051",
+				"events": "grpc://{{PREFIX}}-peer1:7053",
+				"server-hostname": "{{PREFIX}}-peer1",
+				"tls_cacerts": "../artifacts/tls/peers/peer1/ca-cert.pem"
+			}
+		}
+	}
+}
